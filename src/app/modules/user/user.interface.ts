@@ -1,9 +1,10 @@
 import { Model } from 'mongoose'
 
 export interface IUser {
-  id: string
+  id?: string
   password: string
   role: string
+  batch: number
 }
 
 // For using static methods in model:

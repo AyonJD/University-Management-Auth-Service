@@ -5,7 +5,6 @@ const userSchema = new Schema<IUser>(
   {
     id: {
       type: String,
-      required: true,
       unique: true,
     },
     password: {
@@ -16,7 +15,7 @@ const userSchema = new Schema<IUser>(
     role: {
       type: String,
       required: true,
-      enum: ['user', 'admin', 'faculty'],
+      enum: ['student', 'admin', 'faculty'],
       default: 'user',
     },
   },
