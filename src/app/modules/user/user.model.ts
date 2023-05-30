@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { IUser } from './user.interface'
+import { IUser, IUserModel } from './user.interface'
 
 const userSchema = new Schema<IUser>(
   {
@@ -23,5 +23,8 @@ const userSchema = new Schema<IUser>(
   { timestamps: true }
 )
 
-const userModel = model<IUser>('User', userSchema)
+// Static methods:
+// userSchema.statics.findUserById = async function (id: string) { }
+
+const userModel = model<IUser, IUserModel>('User', userSchema)
 export default userModel
