@@ -9,5 +9,5 @@ export interface IUser {
 
 // For using static methods in model:
 export interface IUserModel extends Model<IUser> {
-  findUserById(id: string): Promise<IUser>
+  findUserById(): Promise<IUser>
 }
