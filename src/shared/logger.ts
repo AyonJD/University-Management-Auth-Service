@@ -16,7 +16,6 @@ const myFormat = printf(({ level, message, label, timestamp }) => {
 const successLogger = createLogger({
   level: 'info',
   format: combine(label({ label: 'Success Log' }), timestamp(), myFormat),
-  // defaultMeta: { service: 'user-service' },
   transports: [
     new transports.Console(),
     new DailyRotateFile({
