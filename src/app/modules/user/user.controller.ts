@@ -1,15 +1,16 @@
-import { Request, Response } from 'express'
-import {
-  sendErrorResponse,
-  sendSuccessResponse,
-} from '../../utils/customResponse'
-import { createUserService } from './user.service'
+import { RequestHandler } from 'express'
+import { sendSuccessResponse } from '../../utils/customResponse'
+import { UserService } from './user.service'
 
-export const createUser = async (req: Request, res: Response) => {
+const createUser: RequestHandler = async (req, res, next) => {
   try {
-    const result = await createUserService(req.body)
+    const result = await UserService.createUserService(req.body)
     sendSuccessResponse(res, result, 'User created successfully')
   } catch (error: any) {
-    sendErrorResponse(res, 500, error.message)
+    next(error)
   }
+}
+
+export const UserController = {
+  createUser,
 }
