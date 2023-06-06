@@ -5,7 +5,6 @@ import ApiError from '../../errors/ApiError'
 import handleValidationError from '../../errors/handleValidationError'
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
-  console.log(error, '--------------------')
   const status = 'false'
   let statusCode = 500
   let message = 'Something went wrong'

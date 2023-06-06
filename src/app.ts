@@ -12,8 +12,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Testing route
-// app.get('/', async (req: Request, res: Response, next: NextFunction) => {
-
+// app.get('/',  (req, res, next) => {
+//  throw new Error('Something went wrong')
 // })
 
 // All routes
