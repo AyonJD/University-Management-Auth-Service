@@ -1,11 +1,10 @@
 import config from '../../../config'
+import ApiError from '../../../errors/ApiError'
 import { IUser } from './user.interface'
 import userModel from './user.model'
 import { generateStudentId } from './user.utils'
 
-export const createUserService = async (
-  userData: IUser
-): Promise<IUser | null> => {
+const createUserService = async (userData: IUser): Promise<IUser | null> => {
   const { batch, ...userDataWithoutBatch } = userData
   const studentId = await generateStudentId(batch as number)
   userDataWithoutBatch.id = studentId
@@ -16,6 +15,10 @@ export const createUserService = async (
 
   const user = await userModel.create(userDataWithoutBatch)
 
-  if (!user) throw new Error('User creation failed')
+  if (!user) throw new ApiError(400, 'User creation failed')
   return user
+}
+
+export const UserService = {
+  createUserService,
 }
