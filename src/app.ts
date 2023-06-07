@@ -12,9 +12,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Testing route
-// app.get('/',  (req, res, next) => {
-//  throw new Error('Something went wrong')
-// })
+app.get('/', async (req, res, next) => {
+  Promise.reject(new Error('Unhandled promise rejection'))
+})
 
 // All routes
 app.use('/api/v1/user', UserRoute)
