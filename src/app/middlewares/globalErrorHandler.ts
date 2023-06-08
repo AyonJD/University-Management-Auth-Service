@@ -3,8 +3,10 @@ import { ErrorRequestHandler } from 'express'
 import config from '../../config'
 import { IGenericErrorMessage } from '../../interfaces/errorInterface'
 import ApiError from '../../errors/ApiError'
-import handleValidationError from '../../errors/handleValidationError'
+import handleMongooseValidationError from '../../errors/handleMongooseValidationError'
 import { errorLogger } from '../../shared/logger'
+import { ZodError } from 'zod'
+import handleZodValidationError from '../../errors/handleZodValidationError'
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   if (config.env === 'development') {
@@ -18,8 +20,14 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   let message = 'Something went wrong'
   let errorMessages: IGenericErrorMessage[] = []
 
-  if (error.name === 'ValidationError') {
-    const simplifiedError = handleValidationError(error)
+  if (error instanceof ZodError) {
+    const simplifiedError = handleZodValidationError(error)
+
+    statusCode = simplifiedError.statusCode
+    message = simplifiedError.message
+    errorMessages = simplifiedError.errorMessages
+  } else if (error.name === 'ValidationError') {
+    const simplifiedError = handleMongooseValidationError(error)
 
     statusCode = simplifiedError.statusCode
     message = simplifiedError.message
