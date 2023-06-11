@@ -5,6 +5,8 @@ import {
   SemesterCode,
   SemesterTitle,
 } from '../../../constant/semester.constant'
+import ApiError from '../../../errors/ApiError'
+import status from 'http-status'
 
 const semesterSchema = new Schema<ISemester>(
   {
@@ -38,6 +40,21 @@ const semesterSchema = new Schema<ISemester>(
 
 // Static methods:
 // semesterSchema.statics.findUserById = async function (id: string) { }
+
+// Pre hook for checking if same year and semester exists before creating new one
+semesterSchema.pre('save', async function (next) {
+  const semester = this as ISemester
+  const sameSemester = await semesterModel.findOne({
+    title: semester.title,
+    year: semester.year,
+  })
+
+  if (sameSemester) {
+    throw new ApiError(status.CONFLICT, 'Semester already exists')
+  }
+
+  next()
+})
 
 const semesterModel = model<ISemester, ISemesterModel>(
   'Semester',
