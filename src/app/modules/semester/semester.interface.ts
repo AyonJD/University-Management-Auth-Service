@@ -1,18 +1,18 @@
 import { Model } from 'mongoose'
 
 export type IMonths =
-  | 'January'
+  | 'January' // Fall starts
   | 'February'
   | 'March'
-  | 'April'
-  | 'May'
+  | 'April' // Fall ends
+  | 'May' // Summer starts
   | 'June'
   | 'July'
-  | 'August'
-  | 'September'
+  | 'August' // Summer ends
+  | 'September' // Spring starts
   | 'October'
   | 'November'
-  | 'December'
+  | 'December' // Spring ends
 
 export type ISemesterTitle = 'Spring' | 'Summer' | 'Fall'
 
