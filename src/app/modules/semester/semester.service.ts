@@ -1,3 +1,4 @@
+import { SortOrder } from 'mongoose'
 import {
   SemesterTitleCodeMapper,
   SemesterTitleMonthMapper,
@@ -7,6 +8,7 @@ import {
   IGenericDataWithMeta,
   IPaginationOption,
 } from '../../../interfaces/sharedInterface'
+import paginationHelper from '../../helpers/paginationHelper'
 import { ISemester } from './semester.interface'
 import semesterModel from './semester.model'
 import httpStatus from 'http-status'
@@ -47,10 +49,20 @@ const createSemester = async (semesterData: ISemester): Promise<ISemester> => {
 const getSemesters = async (
   paginationOption: IPaginationOption
 ): Promise<IGenericDataWithMeta<ISemester[]>> => {
-  const { page = 1, limit = 10 } = paginationOption
-  const skip = (page - 1) * limit
+  const { page, limit, skip, sortBy, sortOrder } =
+    paginationHelper(paginationOption)
 
-  const result = await semesterModel.find().sort().skip(skip).limit(limit)
+  const sortCondition: { [key: string]: SortOrder } = {}
+
+  if (sortBy && sortOrder) {
+    sortCondition[sortBy] = sortOrder
+  }
+
+  const result = await semesterModel
+    .find()
+    .sort(sortCondition)
+    .skip(skip)
+    .limit(limit as number)
   const total = await semesterModel.countDocuments()
 
   const responseData = {
