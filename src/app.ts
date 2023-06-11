@@ -3,8 +3,7 @@ import cors from 'cors'
 import globalErrorHandler from './app/middlewares/globalErrorHandler'
 
 // Import routes
-import { UserRoute } from './app/modules/user/user.route'
-import { SemesterRoute } from './app/modules/semester/semester.route'
+import routes from './app/Routes/index'
 
 const app: Application = express()
 
@@ -18,8 +17,7 @@ app.get('/', async (req, res, next) => {
 })
 
 // All routes
-app.use('/api/v1/user', UserRoute)
-app.use('/api/v1/semester', SemesterRoute)
+app.use('/api/v1', routes)
 
 // Global error handler
 app.use(globalErrorHandler)
