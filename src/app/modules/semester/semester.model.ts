@@ -6,7 +6,7 @@ import {
   SemesterTitle,
 } from '../../../constant/semester.constant'
 import ApiError from '../../../errors/ApiError'
-import status from 'http-status'
+import httpStatus from 'http-status'
 
 const semesterSchema = new Schema<ISemester>(
   {
@@ -50,7 +50,7 @@ semesterSchema.pre('save', async function (next) {
   })
 
   if (sameSemester) {
-    throw new ApiError(status.CONFLICT, 'Semester already exists')
+    throw new ApiError(httpStatus.CONFLICT, 'Semester already exists')
   }
 
   next()
