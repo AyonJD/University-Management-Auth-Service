@@ -1,4 +1,5 @@
 import { Response } from 'express'
+import httpStatus from 'http-status'
 
 export const sendSuccessResponse = <T>(
   res: Response,
@@ -10,7 +11,7 @@ export const sendSuccessResponse = <T>(
     data,
     message: message || 'Success',
   }
-  res.status(200).json(response)
+  res.status(httpStatus.OK).json(response)
 }
 
 export const sendErrorResponse = (

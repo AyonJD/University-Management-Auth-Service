@@ -3,6 +3,7 @@ import {
   SemesterTitleMonthMapper,
 } from '../../../constant/semester.constant'
 import ApiError from '../../../errors/ApiError'
+import { IPaginationOption } from '../../../interfaces/sharedInterface'
 import { ISemester } from './semester.interface'
 import semesterModel from './semester.model'
 import httpStatus from 'http-status'
@@ -40,6 +41,18 @@ const createSemester = async (semesterData: ISemester): Promise<ISemester> => {
   return semester
 }
 
+const getSemesters = async (
+  paginationOption: IPaginationOption
+): Promise<ISemester[]> => {
+  const semesters = await semesterModel
+    .find()
+    .sort({ createdAt: 'desc' })
+    .skip((paginationOption.page - 1) * paginationOption.limit)
+    .limit(paginationOption.limit)
+  return semesters
+}
+
 export const SemesterService = {
   createSemester,
+  getSemesters,
 }

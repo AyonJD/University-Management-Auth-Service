@@ -11,4 +11,6 @@ router.post(
   SemesterController.createSemester
 )
 
+router.get('/get_semesters', SemesterController.getSemesters)
+
 export const SemesterRoute = router
