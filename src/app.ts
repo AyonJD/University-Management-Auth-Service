@@ -4,6 +4,7 @@ import globalErrorHandler from './app/middlewares/globalErrorHandler'
 
 // Import routes
 import { UserRoute } from './app/modules/user/user.route'
+import { SemesterRoute } from './app/modules/semester/semester.route'
 
 const app: Application = express()
 
@@ -18,6 +19,7 @@ app.get('/', async (req, res, next) => {
 
 // All routes
 app.use('/api/v1/user', UserRoute)
+app.use('/api/v1/semester', SemesterRoute)
 
 // Global error handler
 app.use(globalErrorHandler)
