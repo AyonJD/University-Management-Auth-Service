@@ -13,5 +13,10 @@ router.post(
 
 router.get('/get_semesters', SemesterController.getSemesters)
 router.get('/get_semester/:id', SemesterController.getSemester)
+router.patch(
+  '/update_semester/:id',
+  validateRequest(SemesterValidation.updateSemesterZodSchema),
+  SemesterController.updateSemester
+)
 
 export const SemesterRoute = router

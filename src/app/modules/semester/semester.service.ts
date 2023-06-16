@@ -121,8 +121,51 @@ const getSemester = async (
   return responseData
 }
 
+const updateSemester = async (
+  id: string,
+  semesterData: Partial<ISemester>
+): Promise<ISemester> => {
+  // Title and code mismatch
+  if (
+    semesterData.title &&
+    semesterData.code &&
+    SemesterTitleCodeMapper[semesterData.title] !== semesterData.code
+  ) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid semester code')
+  }
+
+  // Start month mismatch
+  if (
+    semesterData.title &&
+    SemesterTitleMonthMapper[semesterData.title][0] !== semesterData.startMonth
+  ) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid start month')
+  }
+
+  // End month mismatch
+  if (
+    semesterData.title &&
+    SemesterTitleMonthMapper[semesterData.title][
+      SemesterTitleMonthMapper[semesterData.title].length - 1
+    ] !== semesterData.endMonth
+  ) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid end month')
+  }
+
+  const semester = await semesterModel.findOneAndUpdate(
+    { _id: id },
+    semesterData,
+    { new: true }
+  )
+
+  if (!semester) throw new ApiError(404, 'Semester not found')
+
+  return semester
+}
+
 export const SemesterService = {
   createSemester,
   getSemesters,
   getSemester,
+  updateSemester,
 }

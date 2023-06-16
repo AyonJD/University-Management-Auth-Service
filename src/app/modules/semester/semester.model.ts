@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose'
+import mongoose, { Schema, model } from 'mongoose'
 import { ISemester, ISemesterModel } from './semester.interface'
 import {
   Months,
@@ -44,9 +44,25 @@ const semesterSchema = new Schema<ISemester>(
 // Pre hook for checking if same year and semester exists before creating new one
 semesterSchema.pre('save', async function (next) {
   const semester = this as ISemester
+
   const sameSemester = await semesterModel.findOne({
     title: semester.title,
     year: semester.year,
+  })
+
+  if (sameSemester) {
+    throw new ApiError(httpStatus.CONFLICT, 'Semester already exists')
+  }
+
+  next()
+})
+
+semesterSchema.pre('findOneAndUpdate', async function (next) {
+  const semester = this as any
+
+  const sameSemester = await semesterModel.findOne({
+    title: semester._update.title,
+    year: semester._update.year,
   })
 
   if (sameSemester) {
