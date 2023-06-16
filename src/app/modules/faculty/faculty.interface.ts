@@ -7,3 +7,7 @@ export interface IFaculty {
 export interface IFacultyModel extends Model<IFaculty> {
   findFacultyById(): Promise<IFaculty>
 }
+
+export interface IFacultyFilter {
+  searchTerm?: string
+}
