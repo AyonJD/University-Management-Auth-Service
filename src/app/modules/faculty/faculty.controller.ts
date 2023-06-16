@@ -35,7 +35,36 @@ const getFaculties = catchAsync(async (req: Request, res: Response) => {
   sendSuccessResponse<IFaculty[]>(res, responseData)
 })
 
+const getFaculty = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params
+
+  const result = await FacultyService.getFaculty(id)
+
+  const responseData = {
+    data: result.data,
+    message: 'Faculty fetched successfully',
+  }
+
+  sendSuccessResponse<IFaculty>(res, responseData)
+})
+
+const updateFaculty = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params
+  const facultyData = req.body
+
+  const result = await FacultyService.updateFaculty(id, facultyData)
+
+  const responseData = {
+    data: result,
+    message: 'Faculty updated successfully',
+  }
+
+  sendSuccessResponse<IFaculty>(res, responseData)
+})
+
 export const FacultyController = {
   createFaculty,
   getFaculties,
+  getFaculty,
+  updateFaculty,
 }

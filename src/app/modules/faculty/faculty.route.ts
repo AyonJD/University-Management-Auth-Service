@@ -12,5 +12,11 @@ router.post(
 )
 
 router.get('/get_faculties', FacultyController.getFaculties)
+router.get('/get_faculty/:id', FacultyController.getFaculty)
+router.patch(
+  '/update_faculty/:id',
+  validateRequest(FacultyValidation.createFacultyZodSchema),
+  FacultyController.updateFaculty
+)
 
 export const FacultyRoute = router

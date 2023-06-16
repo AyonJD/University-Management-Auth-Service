@@ -33,6 +33,21 @@ facultySchema.pre('save', async function (next) {
   next()
 })
 
+facultySchema.pre('findOneAndUpdate', async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const faculty = this as any
+
+  const sameFaculty = await facultyModel.findOne({
+    title: faculty._update.title,
+  })
+
+  if (sameFaculty) {
+    throw new ApiError(httpStatus.CONFLICT, 'Faculty already exists')
+  }
+
+  next()
+})
+
 const facultyModel = model<IFaculty, IFacultyModel>('Faculty', facultySchema)
 
 export default facultyModel

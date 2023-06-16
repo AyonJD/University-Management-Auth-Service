@@ -74,7 +74,36 @@ const getFaculties = async (
   return responseData
 }
 
+const getFaculty = async (
+  id: string
+): Promise<IGenericDataWithMeta<IFaculty>> => {
+  const faculty = await facultyModel.findById(id).exec()
+
+  if (!faculty) throw new ApiError(httpStatus.NOT_FOUND, 'Faculty not found')
+
+  const responseData = {
+    data: faculty,
+  }
+
+  return responseData
+}
+
+const updateFaculty = async (
+  id: string,
+  facultyData: IFaculty
+): Promise<IFaculty> => {
+  const faculty = await facultyModel
+    .findOneAndUpdate({ _id: id }, facultyData, { new: true })
+    .exec()
+
+  if (!faculty) throw new ApiError(httpStatus.NOT_FOUND, 'Faculty not found')
+
+  return faculty
+}
+
 export const FacultyService = {
   createFaculty,
   getFaculties,
+  getFaculty,
+  updateFaculty,
 }
