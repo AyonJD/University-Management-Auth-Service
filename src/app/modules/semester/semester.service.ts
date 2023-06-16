@@ -3,7 +3,7 @@ import {
   SemesterSearchFields,
   SemesterTitleCodeMapper,
   SemesterTitleMonthMapper,
-} from '../../../constant/semester.constant'
+} from './semester.constant'
 import ApiError from '../../../errors/ApiError'
 import {
   IGenericDataWithMeta,

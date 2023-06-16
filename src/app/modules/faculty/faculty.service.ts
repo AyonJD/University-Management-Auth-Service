@@ -6,7 +6,7 @@ import {
   IGenericDataWithMeta,
   IPaginationOption,
 } from '../../../interfaces/sharedInterface'
-import { FacultySearchFields } from '../../../constant/faculty.constant'
+import { FacultySearchFields } from './faculty.constant'
 import paginationHelper from '../../helpers/paginationHelper'
 import { SortOrder } from 'mongoose'
 

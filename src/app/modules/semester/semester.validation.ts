@@ -1,9 +1,5 @@
 import { z } from 'zod'
-import {
-  Months,
-  SemesterCode,
-  SemesterTitle,
-} from '../../../constant/semester.constant'
+import { Months, SemesterCode, SemesterTitle } from './semester.constant'
 import ApiError from '../../../errors/ApiError'
 import httpStatus from 'http-status'
 

@@ -4,7 +4,7 @@ import { FacultyService } from './faculty.service'
 import { sendSuccessResponse } from '../../utils/customResponse'
 import { IFaculty } from './faculty.interface'
 import pick from '../../../shared/pick'
-import { FacultySearchFields } from '../../../constant/faculty.constant'
+import { FacultySearchFields } from './faculty.constant'
 import { paginationFields } from '../../../constant/shared.constant'
 
 const createFaculty = catchAsync(async (req: Request, res: Response) => {

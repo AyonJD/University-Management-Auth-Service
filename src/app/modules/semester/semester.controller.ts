@@ -6,7 +6,7 @@ import { IPaginationOption } from '../../../interfaces/sharedInterface'
 import pick from '../../../shared/pick'
 import { paginationFields } from '../../../constant/shared.constant'
 import { ISemester } from './semester.interface'
-import { SemesterSearchFields } from '../../../constant/semester.constant'
+import { SemesterSearchFields } from './semester.constant'
 
 const createSemester = catchAsync(async (req: Request, res: Response) => {
   const semesterData = req.body

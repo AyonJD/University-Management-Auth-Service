@@ -1,8 +1,4 @@
-import {
-  IMonths,
-  ISemesterCode,
-  ISemesterTitle,
-} from '../app/modules/semester/semester.interface'
+import { IMonths, ISemesterCode, ISemesterTitle } from './semester.interface'
 
 export const SemesterTitle: ISemesterTitle[] = ['Spring', 'Summer', 'Fall']
 
