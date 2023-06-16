@@ -60,9 +60,23 @@ const updateSemester = catchAsync(async (req: Request, res: Response) => {
   sendSuccessResponse<ISemester>(res, responseData)
 })
 
+const deleteSemester = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params
+
+  const result = await SemesterService.deleteSemester(id)
+
+  const responseData = {
+    data: result,
+    message: 'Semester deleted successfully',
+  }
+
+  sendSuccessResponse<ISemester>(res, responseData)
+})
+
 export const SemesterController = {
   createSemester,
   getSemesters,
   getSemester,
   updateSemester,
+  deleteSemester,
 }

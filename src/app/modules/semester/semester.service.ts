@@ -163,9 +163,18 @@ const updateSemester = async (
   return semester
 }
 
+const deleteSemester = async (id: string): Promise<ISemester> => {
+  const semester = await semesterModel.findByIdAndDelete(id)
+
+  if (!semester) throw new ApiError(404, 'Semester not found')
+
+  return semester
+}
+
 export const SemesterService = {
   createSemester,
   getSemesters,
   getSemester,
   updateSemester,
+  deleteSemester,
 }
