@@ -31,7 +31,12 @@ const semesterSchema = new Schema<ISemester>(
       enum: Months,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+    },
+  }
 )
 
 // Static methods:

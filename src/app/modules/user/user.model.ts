@@ -19,7 +19,12 @@ const userSchema = new Schema<IUser>(
       default: 'user',
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: {
+      virtuals: true, // it will show the _id as id as a extra field but it will not be stored in the database. For using mulitple databases, it is important to have this field. like postgresql has id as primary key not _id
+    },
+  }
 )
 
 // Static methods:
