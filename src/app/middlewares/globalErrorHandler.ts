@@ -8,6 +8,7 @@ import { errorLogger } from '../../shared/logger'
 import { ZodError } from 'zod'
 import handleZodValidationError from '../../errors/handleZodValidationError'
 import handleCastValidationError from '../../errors/handleCastValidationError'
+import handleMongoServerError from '../../errors/handleMongoServerError'
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   if (config.env === 'development') {
@@ -29,6 +30,12 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
     errorMessages = simplifiedError.errorMessages
   } else if (error.name === 'ValidationError') {
     const simplifiedError = handleMongooseValidationError(error)
+
+    statusCode = simplifiedError.statusCode
+    message = simplifiedError.message
+    errorMessages = simplifiedError.errorMessages
+  } else if (error.name === 'MongoServerError') {
+    const simplifiedError = handleMongoServerError(error)
 
     statusCode = simplifiedError.statusCode
     message = simplifiedError.message
