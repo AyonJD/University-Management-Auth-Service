@@ -107,7 +107,22 @@ const getSemesters = async (
   return responseData
 }
 
+const getSemester = async (
+  id: string
+): Promise<IGenericDataWithMeta<ISemester>> => {
+  const semester = await semesterModel.findById(id)
+
+  if (!semester) throw new ApiError(404, 'Semester not found')
+
+  const responseData = {
+    data: semester,
+  }
+
+  return responseData
+}
+
 export const SemesterService = {
   createSemester,
   getSemesters,
+  getSemester,
 }

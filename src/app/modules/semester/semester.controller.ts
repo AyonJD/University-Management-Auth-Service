@@ -33,7 +33,21 @@ const getSemesters = catchAsync(async (req: Request, res: Response) => {
   sendSuccessResponse<ISemester[]>(res, responseData)
 })
 
+const getSemester = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params
+
+  const result = await SemesterService.getSemester(id)
+
+  const responseData = {
+    data: result.data,
+    message: 'Semester fetched successfully',
+  }
+
+  sendSuccessResponse<ISemester>(res, responseData)
+})
+
 export const SemesterController = {
   createSemester,
   getSemesters,
+  getSemester,
 }
