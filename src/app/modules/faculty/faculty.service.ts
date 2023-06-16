@@ -101,9 +101,18 @@ const updateFaculty = async (
   return faculty
 }
 
+const deleteFaculty = async (id: string): Promise<IFaculty> => {
+  const faculty = await facultyModel.findByIdAndDelete(id).exec()
+
+  if (!faculty) throw new ApiError(httpStatus.NOT_FOUND, 'Faculty not found')
+
+  return faculty
+}
+
 export const FacultyService = {
   createFaculty,
   getFaculties,
   getFaculty,
   updateFaculty,
+  deleteFaculty,
 }
