@@ -6,6 +6,7 @@ import globalErrorHandler from './app/middlewares/globalErrorHandler'
 import routes from './app/Routes/index'
 import ApiError from './errors/ApiError'
 import httpStatus from 'http-status'
+import { generateStudentId } from './app/modules/user/user.utils'
 
 const app: Application = express()
 
