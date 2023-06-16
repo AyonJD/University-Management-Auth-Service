@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from 'mongoose'
+import { Schema, model } from 'mongoose'
 import { ISemester, ISemesterModel } from './semester.interface'
 import {
   Months,
@@ -58,6 +58,7 @@ semesterSchema.pre('save', async function (next) {
 })
 
 semesterSchema.pre('findOneAndUpdate', async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const semester = this as any
 
   const sameSemester = await semesterModel.findOne({
