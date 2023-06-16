@@ -6,6 +6,7 @@ import { IPaginationOption } from '../../../interfaces/sharedInterface'
 import pick from '../../../shared/pick'
 import { paginationFields } from '../../../constant/shared.constant'
 import { ISemester } from './semester.interface'
+import { SemesterSearchFields } from '../../../constant/semester.constant'
 
 const createSemester = catchAsync(async (req: Request, res: Response) => {
   const semesterData = req.body
@@ -18,9 +19,10 @@ const createSemester = catchAsync(async (req: Request, res: Response) => {
 })
 
 const getSemesters = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, ['searchTerm', ...SemesterSearchFields])
   const paginationOption: IPaginationOption = pick(req.query, paginationFields)
 
-  const result = await SemesterService.getSemesters(paginationOption)
+  const result = await SemesterService.getSemesters(filters, paginationOption)
 
   const responseData = {
     meta: result.meta || {},

@@ -1,5 +1,6 @@
 import { SortOrder } from 'mongoose'
 import {
+  SemesterSearchFields,
   SemesterTitleCodeMapper,
   SemesterTitleMonthMapper,
 } from '../../../constant/semester.constant'
@@ -9,7 +10,7 @@ import {
   IPaginationOption,
 } from '../../../interfaces/sharedInterface'
 import paginationHelper from '../../helpers/paginationHelper'
-import { ISemester } from './semester.interface'
+import { ISemester, ISemesterFilter } from './semester.interface'
 import semesterModel from './semester.model'
 import httpStatus from 'http-status'
 
@@ -47,11 +48,40 @@ const createSemester = async (semesterData: ISemester): Promise<ISemester> => {
 }
 
 const getSemesters = async (
+  filters: ISemesterFilter,
   paginationOption: IPaginationOption
 ): Promise<IGenericDataWithMeta<ISemester[]>> => {
+  const { searchTerm, ...searchFields } = filters
+
+  const andConditions = []
+  if (searchTerm) {
+    andConditions.push({
+      $or: SemesterSearchFields.map(field => ({
+        [field]: {
+          $regex: searchTerm,
+          $options: 'i',
+        },
+      })),
+    })
+  }
+
+  if (Object.keys(searchFields).length) {
+    andConditions.push({
+      $and: Object.entries(searchFields).map(([key, value]) => ({
+        [key]: value,
+      })),
+    })
+  }
+
+  //  If there is no search term or search fields, the `andConditions` array will be empty, so the `whereCondition` object will be empty as well and we get all the semesters.
+
+  const whereCondition = andConditions.length ? { $and: andConditions } : {}
+
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelper(paginationOption)
 
+  /* This code is creating an empty object called `sortCondition` with a type definition that specifies
+  that it should have string keys and values of type `SortOrder`. */
   const sortCondition: { [key: string]: SortOrder } = {}
 
   if (sortBy && sortOrder) {
@@ -59,7 +89,7 @@ const getSemesters = async (
   }
 
   const result = await semesterModel
-    .find()
+    .find(whereCondition)
     .sort(sortCondition)
     .skip(skip)
     .limit(limit as number)

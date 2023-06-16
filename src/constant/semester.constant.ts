@@ -43,3 +43,5 @@ export const SemesterTitleMonthMapper: {
   Summer: ['May', 'June', 'July', 'August'],
   Spring: ['September', 'October', 'November', 'December'],
 }
+
+export const SemesterSearchFields: string[] = ['title', 'year', 'code']

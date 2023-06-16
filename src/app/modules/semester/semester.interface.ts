@@ -20,7 +20,7 @@ export type ISemesterCode = 'SP' | 'SU' | 'FA'
 
 export interface ISemester {
   title: ISemesterTitle
-  year: number
+  year: string
   code: ISemesterCode
   startMonth: IMonths
   endMonth: IMonths
@@ -28,4 +28,8 @@ export interface ISemester {
 
 export interface ISemesterModel extends Model<ISemester> {
   findUserById(): Promise<ISemester>
+}
+
+export interface ISemesterFilter {
+  searchTerm?: string
 }
