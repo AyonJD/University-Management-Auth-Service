@@ -11,4 +11,5 @@ export default {
   port: process.env.PORT || 8000,
   database_string: process.env.DATABASE_STRING,
   default_student_password: process.env.DEFAULT_STUDENT_PASSWORD,
+  default_authority_password: process.env.DEFAULT_AUTHORITY_PASSWORD,
 }

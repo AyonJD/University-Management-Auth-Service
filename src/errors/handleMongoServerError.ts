@@ -12,14 +12,14 @@ const handleMongoServerError = (
   const errors: IGenericErrorMessage[] = [
     {
       path: firstKey,
-      message: 'Duplicate value',
+      message: error.message,
     },
   ]
   const statusCode = httpStatus.INTERNAL_SERVER_ERROR
   return {
     status: 'false',
     statusCode,
-    message: 'Duplicate value',
+    message: error.message,
     errorMessages: errors,
   }
 }

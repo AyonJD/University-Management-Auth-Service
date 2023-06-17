@@ -10,7 +10,9 @@ export const findLastAdmittedStudentId = async (): Promise<
     .sort({ createdAt: -1 })
     .lean()
 
-  return lastAdmittedStudent?.id || undefined
+  return lastAdmittedStudent?.id
+    ? lastAdmittedStudent.id.substring(4)
+    : undefined
 }
 
 export const generateStudentId = async (
@@ -27,4 +29,32 @@ export const generateStudentId = async (
   newStudentIdNumber = `${year.substring(2)}${code}${newStudentIdNumber}`
 
   return newStudentIdNumber
+}
+
+export const findHeigherAuthorityLastId = async (
+  role: string
+): Promise<string | undefined> => {
+  const lastFaculty = await userModel
+    .findOne({ role: role })
+    .select({ id: 1, _id: 0 })
+    .sort({ createdAt: -1 })
+    .lean()
+
+  return lastFaculty?.id ? lastFaculty.id.substring(2) : undefined
+}
+
+export const generateHeigherAuthorityId = async (
+  role: string
+): Promise<string> => {
+  const lastFacultyId =
+    (await findHeigherAuthorityLastId(role)) || (0).toString().padStart(5, '0')
+  let newFacultyIdNumber = (parseInt(lastFacultyId) + 1)
+    .toString()
+    .padStart(5, '0')
+
+  newFacultyIdNumber = `${role
+    .substring(0, 1)
+    .toLocaleUpperCase()}-${newFacultyIdNumber}`
+
+  return newFacultyIdNumber
 }
