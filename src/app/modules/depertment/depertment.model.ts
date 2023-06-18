@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose'
-import { IDepertment, IDepertmentModel } from './depertment.interface'
+import { IDepartment, IDepartmentModel } from './depertment.interface'
 
-const depertmentSchema = new Schema<IDepertment>(
+const departmentSchema = new Schema<IDepartment>(
   {
     title: {
       type: String,
@@ -22,9 +22,9 @@ const depertmentSchema = new Schema<IDepertment>(
   }
 )
 
-const depertmentModel = model<IDepertment, IDepertmentModel>(
-  'Depertment',
-  depertmentSchema
+const departmentModel = model<IDepartment, IDepartmentModel>(
+  'Department',
+  departmentSchema
 )
 
-export default depertmentModel
+export default departmentModel

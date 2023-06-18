@@ -1,1 +1,1 @@
-export const DepertmentSearchFields: string[] = ['title']
+export const DepartmentSearchFields: string[] = ['title']

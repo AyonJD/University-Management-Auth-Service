@@ -1,29 +1,29 @@
 import { Request, Response } from 'express'
 import catchAsync from '../../../shared/catchAsync'
-import { DepertmentService } from './depertment.service'
-import { sendSuccessResponse } from '../../utils/customResponse'
-import { IDepertment } from './depertment.interface'
 import pick from '../../../shared/pick'
-import { DepertmentSearchFields } from './depertment.constant'
 import { IPaginationOption } from '../../../interfaces/sharedInterface'
 import { paginationFields } from '../../../constant/shared.constant'
+import { DepartmentService } from './depertment.service'
+import { DepartmentSearchFields } from './depertment.constant'
+import { sendSuccessResponse } from '../../utils/customResponse'
+import { IDepartment } from './depertment.interface'
 
-const createDepertment = catchAsync(async (req: Request, res: Response) => {
-  const depertmentData = req.body
-  const result = await DepertmentService.createDepertment(depertmentData)
+const createDepartment = catchAsync(async (req: Request, res: Response) => {
+  const departmentData = req.body
+  const result = await DepartmentService.createDepartment(departmentData)
   const responseData = {
     data: result,
-    message: 'Depertment created successfully',
+    message: 'Department created successfully',
   }
 
-  sendSuccessResponse<IDepertment>(res, responseData)
+  sendSuccessResponse<IDepartment>(res, responseData)
 })
 
-const getDepertments = catchAsync(async (req: Request, res: Response) => {
-  const filters = pick(req.query, ['searchTerm', ...DepertmentSearchFields])
+const getDepartments = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, ['searchTerm', ...DepartmentSearchFields])
   const paginationOption: IPaginationOption = pick(req.query, paginationFields)
 
-  const result = await DepertmentService.getDepertments(
+  const result = await DepartmentService.getDepartments(
     filters,
     paginationOption
   )
@@ -34,49 +34,49 @@ const getDepertments = catchAsync(async (req: Request, res: Response) => {
     message: 'Semesters fetched successfully',
   }
 
-  sendSuccessResponse<IDepertment[]>(res, responseData)
+  sendSuccessResponse<IDepartment[]>(res, responseData)
 })
 
-const getDepertment = catchAsync(async (req: Request, res: Response) => {
+const getDepartment = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params
 
-  const result = await DepertmentService.getDepertment(id)
+  const result = await DepartmentService.getDepartment(id)
 
   const responseData = {
     data: result.data,
-    message: 'Depertment fetched successfully',
+    message: 'Department fetched successfully',
   }
 
-  sendSuccessResponse<IDepertment>(res, responseData)
+  sendSuccessResponse<IDepartment>(res, responseData)
 })
 
-const updateDepertment = catchAsync(async (req: Request, res: Response) => {
+const updateDepartment = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params
-  const depertmentData = req.body
-  const result = await DepertmentService.updateDepertment(id, depertmentData)
+  const departmentData = req.body
+  const result = await DepartmentService.updateDepartment(id, departmentData)
   const responseData = {
     data: result,
-    message: 'Depertment updated successfully',
+    message: 'Department updated successfully',
   }
 
-  sendSuccessResponse<IDepertment>(res, responseData)
+  sendSuccessResponse<IDepartment>(res, responseData)
 })
 
-const deleteDepertment = catchAsync(async (req: Request, res: Response) => {
+const deleteDepartment = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params
-  const result = await DepertmentService.deleteDepertment(id)
+  const result = await DepartmentService.deleteDepartment(id)
   const responseData = {
     data: result,
-    message: 'Depertment deleted successfully',
+    message: 'Department deleted successfully',
   }
 
-  sendSuccessResponse<IDepertment>(res, responseData)
+  sendSuccessResponse<IDepartment>(res, responseData)
 })
 
-export const DepertmentController = {
-  createDepertment,
-  getDepertments,
-  getDepertment,
-  updateDepertment,
-  deleteDepertment,
+export const DepartmentController = {
+  createDepartment,
+  getDepartments,
+  getDepartment,
+  updateDepartment,
+  deleteDepartment,
 }

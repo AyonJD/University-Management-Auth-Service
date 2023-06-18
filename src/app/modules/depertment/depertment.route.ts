@@ -1,22 +1,22 @@
 import express from 'express'
 import validateRequest from '../../middlewares/validateRequest'
-import { DepertmentValidation } from './depertment.validation'
-import { DepertmentController } from './depertment.controller'
+import { DepartmentValidation } from './depertment.validation'
+import { DepartmentController } from './depertment.controller'
 
 const router = express.Router()
 
 router.post(
-  '/create_depertment',
-  validateRequest(DepertmentValidation.createDepertmentZodSchema),
-  DepertmentController.createDepertment
+  '/create_department',
+  validateRequest(DepartmentValidation.createDepartmentZodSchema),
+  DepartmentController.createDepartment
 )
-router.get('/get_depertments', DepertmentController.getDepertments)
-router.get('/get_depertment/:id', DepertmentController.getDepertment)
+router.get('/get_departments', DepartmentController.getDepartments)
+router.get('/get_department/:id', DepartmentController.getDepartment)
 router.patch(
-  '/update_depertment/:id',
-  validateRequest(DepertmentValidation.createDepertmentZodSchema),
-  DepertmentController.updateDepertment
+  '/update_department/:id',
+  validateRequest(DepartmentValidation.createDepartmentZodSchema),
+  DepartmentController.updateDepartment
 )
-router.delete('/delete_depertment/:id', DepertmentController.deleteDepertment)
+router.delete('/delete_department/:id', DepartmentController.deleteDepartment)
 
-export const DepertmentRoute = router
+export const DepartmentRoute = router

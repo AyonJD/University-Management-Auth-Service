@@ -6,8 +6,10 @@ import { IUser } from './user.interface'
 import ApiError from '../../../errors/ApiError'
 import httpStatus from 'http-status'
 
-const createUser = catchAsync(async (req: Request, res: Response) => {
-  const result = await UserService.createUserService(req.body)
+const createStudent = catchAsync(async (req: Request, res: Response) => {
+  const { student, ...userData } = req.body
+
+  const result = await UserService.createStudent(student, userData)
   if (!result) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'User creation failed')
   }
@@ -20,5 +22,5 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
 })
 
 export const UserController = {
-  createUser,
+  createStudent,
 }

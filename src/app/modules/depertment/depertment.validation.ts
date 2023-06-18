@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const createDepertmentZodSchema = z.object({
+const createDepartmentZodSchema = z.object({
   body: z.object({
     title: z.string({
       required_error: 'Title is required',
@@ -11,6 +11,6 @@ const createDepertmentZodSchema = z.object({
   }),
 })
 
-export const DepertmentValidation = {
-  createDepertmentZodSchema,
+export const DepartmentValidation = {
+  createDepartmentZodSchema,
 }

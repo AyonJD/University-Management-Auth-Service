@@ -4,12 +4,7 @@ import globalErrorHandler from './app/middlewares/globalErrorHandler'
 
 // Import routes
 import routes from './app/Routes/index'
-import ApiError from './errors/ApiError'
 import httpStatus from 'http-status'
-import {
-  generateHeigherAuthorityId,
-  generateStudentId,
-} from './app/modules/user/user.utils'
 
 const app: Application = express()
 

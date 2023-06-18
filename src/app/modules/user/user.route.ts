@@ -6,9 +6,9 @@ import { UserValidation } from './user.validation'
 const router = express.Router()
 
 router.post(
-  '/create_user',
+  '/create_student',
   validateRequest(UserValidation.createUserZodSchema), // This middleware is for validating the request body with Zod
-  UserController.createUser
+  UserController.createStudent
 )
 
 export const UserRoute = router

@@ -26,12 +26,12 @@ const createUserZodSchema = z.object({
       gender: z.enum([...(GENDER as [string, ...string[]])], {
         required_error: 'Gender is required',
       }),
-      bloodGroup: z.enum([...(BLOODGROUP as [string, ...string[]])], {
-        required_error: 'Blood group is required',
-      }),
-      email: z.string({
-        required_error: 'Email is required',
-      }),
+      bloodGroup: z.enum([...(BLOODGROUP as [string, ...string[]])]).optional(),
+      email: z
+        .string({
+          required_error: 'Email is required',
+        })
+        .email(),
       contactNo: z.string({
         required_error: 'Contact number is required',
       }),
@@ -86,7 +86,7 @@ const createUserZodSchema = z.object({
         required_error: 'Faculty is required',
       }),
       department: z.string({
-        required_error: 'Depertment is required',
+        required_error: 'Department is required',
       }),
       semester: z.string({
         required_error: 'Semester is required',
