@@ -1,8 +1,8 @@
-import { InferSchemaType, Model, Types } from 'mongoose'
-import { studentSchema } from './student.model'
+import { Model, Types } from 'mongoose'
+
 import { IFaculty } from '../faculty/faculty.interface'
-import { IDepartment } from '../department/department.interface'
 import { ISemester } from '../semester/semester.interface'
+import { IDepartment } from '../depertment/depertment.interface'
 
 export interface IStudentName {
   firstName: string

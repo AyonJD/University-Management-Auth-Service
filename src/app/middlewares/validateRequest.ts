@@ -12,6 +12,7 @@ const validateRequest =
         cookies: req.cookies,
       })
       next()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       next(error)
     }

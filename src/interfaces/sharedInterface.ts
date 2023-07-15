@@ -1,5 +1,3 @@
-import { Response } from 'express'
-
 export interface IPaginationOption {
   page?: number
   limit?: number
