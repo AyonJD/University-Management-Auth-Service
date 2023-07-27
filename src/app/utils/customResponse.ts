@@ -2,6 +2,7 @@ import { Response } from 'express'
 import httpStatus from 'http-status'
 import { IGenericResponse } from '../../interfaces/sharedInterface'
 
+// Custom response for frontend
 export const sendSuccessResponse = <T>(
   res: Response,
   data: IGenericResponse<T>
